@@ -1,0 +1,8 @@
+# ─────────────────────────────────────────────
+# 🔒 DATA FILES (large CSVs excluded from Git)
+# ─────────────────────────────────────────────
+
+# Seoul public bike rental history (Not uploaded to Github due to its large size)
+data/raw/서울특별시 공공자전거 대여이력 정보_2306.csv
+data/raw/서울특별시 공공자전거 대여이력 정보_2307.csv
+data/raw/서울특별시 공공자전거 대여이력 정보_2308.csv
