@@ -51,7 +51,7 @@ seoul-bike-demand/
 - ✅ Created GitHub repository and project structure
 - ✅ Configured `.gitignore` for large files
 - ✅ Stored large CSVs locally and prepared external download link
-- ⬜ Begin EDA (Exploratory Data Analysis)
+- ✅ Begin EDA (Exploratory Data Analysis)
 - ⬜ Merge datasets and preprocess features
 - ⬜ Build demand prediction model
 
