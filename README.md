@@ -6,15 +6,16 @@ This project analyzes Seoul's public bike system "Ddareungi" to identify
 ---
 
 ## 🗂️ Project Structure
+```text
 seoul-bike-demand/
 ├── data/
-│ └── raw/ # Raw data files (excluded from Git)
-│ └── processed/ # Preprocessing and modeling scripts
-├── notebooks/ # Jupyter notebooks for analysis
-├── images/ # Output plots and visualizations
-├── .gitignore # Git ignore settings
-├── requirements.txt # Required Python libraries
-├── README.md # Project overview
+│   └── raw/                # Raw data files (excluded from Git)
+│   └── processed/          # Processed data (cleaned/merged)
+├── notebooks/              # Jupyter notebooks for analysis
+├── images/                 # Output plots and visualizations
+├── .gitignore              # Git ignore settings
+├── requirements.txt        # Required Python libraries
+├── README.md               # Project overview
 
 ---
 
