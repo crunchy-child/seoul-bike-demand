@@ -3,6 +3,9 @@
 # ─────────────────────────────────────────────
 
 # Seoul public bike rental history (Not uploaded to Github due to its large size)
-data/raw/서울특별시 공공자전거 대여이력 정보_2306.csv
-data/raw/서울특별시 공공자전거 대여이력 정보_2307.csv
-data/raw/서울특별시 공공자전거 대여이력 정보_2308.csv
+data/raw/seoul_bike_rentals_2306.csv
+data/raw/seoul_bike_rentals_2307.csv
+data/raw/seoul_bike_rentals_2308.csv
+
+# Merged 3 seoul_bike_rentals file
+data/processed/merged_bike_data.csv
