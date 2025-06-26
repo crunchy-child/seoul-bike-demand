@@ -1,70 +1,159 @@
-# 🚲 Seoul Public Bike (Ddareungi) Usage Analysis
+# 🚲 Seoul Bike Rental Demand Prediction
 
-This project analyzes Seoul's public bike system "Ddareungi" to identify  
-**rental patterns by season, time of day, and weather**, and ultimately build a demand prediction model.
+## 📌 Project Overview
+
+This project aims to predict hourly rental demand of Seoul's public bike system (Ttareungi) using weather data and time-related features. We analyze how weather conditions impact bike usage and build predictive models for accurate rental forecasting.
 
 ---
 
-## 🗂️ Project Structure
+## 📁 Dataset
+
+- **Bike rental data**: Hourly rental logs from June to August 2023 from Seoul Open Data Plaza
+- **Weather data**: Daily weather observations for Seoul from the Korea Meteorological Administration (KMA)
+
+### 📦 Datasets included in `.gitignore`
+- 📎 [Download from Google Drive](https://drive.google.com/drive/folders/1Xq1_BwaJTwwWs1QDhfQklecDNFyghps8?usp=drive_link)
+    
+    → After downloading, please place the files `seoul_bike_rentals_2306.csv`, `seoul_bike_rentals_2307.csv`, `seoul_bike_rentals_2308.csv` in `data/raw/`.
+
+    → After downloading, please place the files `bike_with_weather.csv`, `merged_bike_data.csv` in `data/processed/`.
+
+
+---
+
+## 🔍 Exploratory Data Analysis (EDA)
+
+- **Hourly Patterns**: Peaks at 8 AM and 6 PM (commuting hours)
+- **Weekdays vs Weekends**: Higher rentals on weekdays
+    - When simply comparing counts, the number of weekends is smaller than the number of weekdays, so weekdays show higher rental counts.
+- **Average Temp vs Daily Rental Count**: Evenly spread, but with low rental counts between 22 and 26 degrees.
+    - It is estimated that it was likely rainy between 22 and 26 degrees.
+
+---
+
+## 🧪 Modeling
+
+- **Target**: `rental_count` (hourly aggregated)
+- **Features**: Weather (temp, rain, humidity...), time (hour, weekday, weekend)
+- **Model**: XGBoost Regressor
+
+| Metric | Score |
+|--------|-------|
+| MAE    | 962.43 |
+| RMSE   | 1610.30 |
+| MAE Rate | 16.13% |
+| RMSE Rate | 26.99% |
+
+---
+
+## 🔎 Feature Importance & Explainability
+
+### 📊 XGBoost Feature Importance (Gain-based)
+
+Top Features:
+- `rental_hour_19`
+- `rental_hour_18`
+- `avg_temp_C`
+- `daily_rain_mm`
+- `is_weekend`
+- `avg_humidity_pct`
+
+### 🧠 SHAP Summary
+
+Key insights:
+- Rain and average temperature strongly influence rental count
+- Rentals are much lower during heavy rain
+- At 7PM, 6PM, 5PM, 8AM shows high rental counts (commuting hour)
+
+---
+
+## 📂 Repository Structure
 ```text
 seoul-bike-demand/
 ├── data/
-│   └── raw/                # Raw data files (excluded from Git)
-│   └── processed/          # Processed data (cleaned/merged)
-├── notebooks/              # Jupyter notebooks for analysis
-├── images/                 # Output plots and visualizations
-├── .gitignore              # Git ignore settings
-├── requirements.txt        # Required Python libraries
-├── README.md               # Project overview
+│ └── processed/
+│   ├── bike_with_weather.csv
+│   ├── hourly_count_with_weather.csv ← used for modeling
+│   └── merged_bike_data.csv
+│ └── raw/
+│   ├── seoul_bike_rentals_2306.csv
+│   ├── seoul_bike_rentals_2307.csv
+│   ├── seoul_bike_rentals_2308.csv
+│   └── seoul_weather.csv
+├── images/
+│   ├── Average Temperature vs Daily Rental Count.png
+│   ├── Bike Rentals Weekend vs Weekday.png
+│   ├── Correlation between features and rental count.png
+│   ├── Number of Bike Rentals by Hour.png
+│   ├── Number of Bike Rentals by Weekday.png
+│   ├── Random Forest Feature Importances.png
+│   ├── Tuned XGBoost Actual vs Predicted.png
+│   ├── Tuned XGBoost SHAP.png
+│   ├── XGBoost Actual vs Predicted.png
+│   ├── XGBoost Distribution of Residuals.png
+│   └── XGBoost Feature Importances(Frequency Based).png
+├── notebooks/
+│   ├── 01_eda.ipynb
+│   ├── 02_merge_weather.ipynb
+│   ├── 03_eda_advanced.ipynb
+│   └── 04_modeling.ipynb
+├── results/
+├── README.md
+├── .gitignore
+└── requirements.txt
 ```
----
-
-## 📦 Data
-
-### 🔹 Weather Data
-- Weather data for Seoul in 2023.06 to 2023.08
-- Included in the repository: `data/raw/OBS_ASOS_DD_20250622210229.csv`
-
-### 🔸 Bike Rental Records
-- Public bike rental history from 2023.06 to 2023.08 (~2.4GB total)
-- Due to GitHub file size limits, these files are not included in the repo.
-- You can download them via the link below:
-
-📎 [Download from Seoul Open Data Plaza](https://data.seoul.go.kr/dataList/OA-15182/F/1/datasetView.do)
-
-→ After downloading, please place the files in `data/raw/`.
 
 ---
 
-## 🧰 Tech Stack
+## 📊 Visualization Results
 
-- Python (pandas, numpy, matplotlib, seaborn, etc.)
-- Jupyter Notebook
-- Git & GitHub
-- VSCode
+### 🔹 Average Temperature vs Daily Rental Count
+![Average Temperature vs Daily Rental Count](images/Average%20Temperature%20vs%20Daily%20Rental%20Count.png)
+
+### 🔹 Bike Rentals: Weekend vs Weekday
+![Bike Rentals Weekend vs Weekday](images/Bike%20Rentals%20Weekend%20vs%20Weekday.png)
+
+### 🔹 Correlation between Features and Rental Count
+![Correlation](images/Correlation%20between%20features%20and%20rental%20count.png)
+
+### 🔹 Number of Bike Rentals by Hour
+![Rentals by Hour](images/Number%20of%20Bike%20Rentals%20by%20Hour.png)
+
+### 🔹 Number of Bike Rentals by Weekday
+![Rentals by Weekday](images/Number%20of%20Bike%20Rentals%20by%20Weekday.png)
+
+### 🔹 Random Forest Feature Importances
+![RF Importance](images/Random%20Forest%20Feature%20Importances.png)
+
+### 🔹 Tuned XGBoost: Actual vs Predicted
+![Tuned XGB Prediction](images/Tuned%20XGBoost%20Actual%20vs%20Predicted.png)
+
+### 🔹 Tuned XGBoost SHAP
+![Tuned SHAP](images/Tuned%20XGBoost%20SHAP.png)
+
+### 🔹 XGBoost: Actual vs Predicted
+![XGBoost Prediction](images/XGBoost%20Actual%20vs%20Predicted.png)
+
+### 🔹 XGBoost Distribution of Residuals
+![Residuals](images/XGBoost%20Distribution%20of%20Residuals.png)
+
+### 🔹 XGBoost Feature Importances (Frequency Based)
+![XGBoost Importance](images/XGBoost%20Feature%20Importances(Frequency%20Based).png)
 
 ---
 
-## 🚀 Progress Overview
+## ✍️ Conclusion
 
-- ✅ Collected and organized raw datasets
-- ✅ Created GitHub repository and project structure
-- ✅ Configured `.gitignore` for large files
-- ✅ Stored large CSVs locally and prepared external download link
-- ✅ Begin EDA (Exploratory Data Analysis)
-- ⬜ Merge datasets and preprocess features
-- ⬜ Build demand prediction model
+- Weather factors, especially rainfall, temperature and average humidity, significantly affect bike usage
+- XGBoost achieved reasonable accuracy for predicting hourly demand
+- SHAP values helped uncover key feature interactions
+
+This project serves as a solid foundation for operational demand forecasting and resource allocation for Seoul’s bike-sharing system.
 
 ---
 
-## 📌 Data Source
+## 🔗 Author
 
-- Seoul Open Data Plaza: [https://data.seoul.go.kr](https://data.seoul.go.kr)
-- KMA: [https://data.kma.go.kr](https://data.kma.go.kr/)
-
----
-
-## 🙋‍♂️ About Me
-
-- Name: Minkyu Kim
-- GitHub: [@crunchy-child](https://github.com/crunchy-child)
+Minkyu Kim (김민규)  
+GitHub: [crunchy-child](https://github.com/crunchy-child)  
+Project Period: June 2025

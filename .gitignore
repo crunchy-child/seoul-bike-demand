@@ -10,5 +10,8 @@ data/raw/seoul_bike_rentals_2308.csv
 # Merged 3 seoul_bike_rentals file
 data/processed/merged_bike_data.csv
 
+# Merged bike rental with weather file
+data/processed/bike_with_weather.csv
+
 # macOS system file
 .DS_Store
