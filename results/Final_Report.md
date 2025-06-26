@@ -73,7 +73,7 @@ Top predictors:
 
 ## 🖼️ Visualizations
 
-> See all charts in `/images/` and in the [README.md](README.md#-visualization-results)
+> See all charts in `/images/` and in the [README.md](https://github.com/crunchy-child/seoul-bike-demand#-visualization-results)
 
 ---
 
